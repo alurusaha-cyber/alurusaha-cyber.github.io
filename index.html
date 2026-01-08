@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Hifzhan & Triana</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --champagne: #F7E7CE;
+            --gold: #D4AF37;
+            --gold-dark: #B8860B;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fffaf5;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+
+        .bg-gold-gradient {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        .text-gold { color: var(--gold); }
+        .bg-gold { background-color: var(--gold); }
+        
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .flower-frame {
+            border: 2px solid var(--gold);
+            padding: 10px;
+            border-radius: 50% 50% 0 0;
+            overflow: hidden;
+        }
+
+        /* Music Button Animation */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .music-rotate {
+            animation: rotate 5s linear infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+        #opening-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999;
+            background: url('https://lh3.googleusercontent.com/d/1GQfBlaOWx11NpGSqftFcmTk9sNUdWELp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1s ease-in-out;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Opening Overlay -->
+    <div id="opening-overlay">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative text-center text-white p-6" data-aos="zoom-in">
+            <p class="uppercase tracking-[0.3em] mb-4 text-sm">The Wedding Of</p>
+            <h1 class="font-cursive text-6xl md:text-8xl mb-4">Hifzhan & Triana</h1>
+            <div class="mb-8">
+                <p class="text-sm italic">Kepada Bapak/Ibu/Saudara/i</p>
+                <h3 class="text-xl font-bold mt-2">Abdul Gafar Tompo & Istri</h3>
+            </div>
+            <button onclick="openInvitation()" class="bg-white text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gold hover:text-white transition duration-300 shadow-xl">
+                <i class="fas fa-envelope-open-text mr-2"></i> Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Music Control -->
+    <div id="music-control" class="fixed bottom-6 right-6 z-50 hidden">
+        <button onclick="toggleMusic()" class="bg-white/80 p-3 rounded-full shadow-lg text-gold border border-gold focus:outline-none">
+            <i id="music-icon" class="fas fa-compact-disc text-2xl music-rotate"></i>
+        </button>
+    </div>
+
+    <!-- Main Content (Hidden initially) -->
+    <main id="main-content" class="hidden">
+        
+        <!-- Hero Section -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://lh3.googleusercontent.com/d/1GQfBlaOWx11NpGSqftFcmTk9sNUdWELp" class="w-full h-full object-cover" alt="Hero Image">
+                <div class="hero-overlay absolute inset-0"></div>
+            </div>
+            <div class="relative z-10 text-center text-white px-4" data-aos="fade-up" data-aos-duration="1500">
+                <span class="block uppercase tracking-[0.5em] text-sm mb-4">Assalamu'alaikum</span>
+                <h2 class="font-cursive text-7xl md:text-9xl mb-4">Hifzhan & Triana</h2>
+                <p class="font-playfair text-xl md:text-2xl tracking-widest italic">14 . 03 . 2027</p>
+            </div>
+        </section>
+
+        <!-- Quotes Section -->
+        <section class="py-20 px-6 bg-white text-center">
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <i class="fas fa-quote-left text-gold/30 text-4xl mb-6"></i>
+                <p class="italic text-gray-600 leading-relaxed text-lg mb-6">
+                    "Mohon Do'anya agar pernikahan kami menjadi rumah tangga yang sakinah, mawaddah, dan warahmah."
+                </p>
+                <div class="h-px w-20 bg-gold mx-auto"></div>
+            </div>
+        </section>
+
+        <!-- Mempelai Section -->
+        <section class="py-20 bg-[#fafafa]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl text-gold mb-2">Kedua Mempelai</h2>
+                    <p class="text-gray-500">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+                    <!-- Pria -->
+                    <div class="text-center" data-aos="fade-right">
+                        <div class="flower-frame w-64 h-80 mx-auto mb-6 shadow-2xl bg-white">
+                            <img src="https://lh3.googleusercontent.com/d/1bIePZFeTPO-007bMTAOUz8PmCeK_GQwC" class="w-full h-full object-cover" alt="Hifzhan">
+                        </div>
+                        <h3 class="font-playfair text-3xl mb-2">Mohamad Hifzhan Qardhowi, S.H</h3>
+                        <p class="text-sm text-gray-600">Anak kedua dari:</p>
+                        <p class="font-semibold italic">Bapak Hi Abjan Jauhar, S.Ag & Ibu Hj Kalsum Djalaludin</p>
+                        <div class="flex justify-center space-x-4 mt-4">
+                            <a href="#" class="text-gold"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Wanita -->
+                    <div class="text-center" data-aos="fade-left">
+                        <div class="flower-frame w-64 h-80 mx-auto mb-6 shadow-2xl bg-white">
+                            <!-- Using the same fallback as requested -->
+                            <img src="https://lh3.googleusercontent.com/d/1bIePZFeTPO-007bMTAOUz8PmCeK_GQwC" class="w-full h-full object-cover" alt="Triana">
+                        </div>
+                        <h3 class="font-playfair text-3xl mb-2">Triana Widya</h3>
+                        <p class="text-sm text-gray-600">Anak ketiga dari:</p>
+                        <p class="font-semibold italic">Bapak Abdurrahman Alkaff & Ibu Ifon</p>
+                        <div class="flex justify-center space-x-4 mt-4">
+                            <a href="#" class="text-gold"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Story -->
+        <section class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-cursive text-5xl text-gold">Kisah Cinta Kami</h2>
+                </div>
+                <div class="border-l-2 border-gold/30 pl-8 py-4 relative" data-aos="fade-left">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gold"></div>
+                    <h4 class="font-bold text-gold mb-2">Awal Pertemuan</h4>
+                    <p class="text-gray-600 italic">"Kami bertemu sewaktu bersekolah di MAN 1 Palu. Berawal dari bangku sekolah, hingga akhirnya Allah menuntun langkah kami untuk bersatu dalam ikatan suci ini."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="py-20 bg-fixed bg-center bg-cover relative" style="background-image: url('https://lh3.googleusercontent.com/d/1ahx9XMi4WC2MBgcJGTN2CrGBaTm7PVOl');">
+            <div class="hero-overlay absolute inset-0"></div>
+            <div class="container mx-auto px-6 relative z-10 text-white text-center">
+                <h2 class="font-playfair text-3xl mb-10" data-aos="fade-down">Menghitung Hari Menuju Bahagia</h2>
+                <div id="countdown" class="flex justify-center space-x-4 md:space-x-8">
+                    <div class="bg-white/20 glass-effect p-4 rounded-lg w-20 md:w-32" data-aos="zoom-in" data-aos-delay="100">
+                        <span id="days" class="block text-2xl md:text-4xl font-bold">00</span>
+                        <span class="text-xs uppercase">Hari</span>
+                    </div>
+                    <div class="bg-white/20 glass-effect p-4 rounded-lg w-20 md:w-32" data-aos="zoom-in" data-aos-delay="200">
+                        <span id="hours" class="block text-2xl md:text-4xl font-bold">00</span>
+                        <span class="text-xs uppercase">Jam</span>
+                    </div>
+                    <div class="bg-white/20 glass-effect p-4 rounded-lg w-20 md:w-32" data-aos="zoom-in" data-aos-delay="300">
+                        <span id="minutes" class="block text-2xl md:text-4xl font-bold">00</span>
+                        <span class="text-xs uppercase">Menit</span>
+                    </div>
+                    <div class="bg-white/20 glass-effect p-4 rounded-lg w-20 md:w-32" data-aos="zoom-in" data-aos-delay="400">
+                        <span id="seconds" class="block text-2xl md:text-4xl font-bold">00</span>
+                        <span class="text-xs uppercase">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acara Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Akad -->
+                    <div class="bg-[#fffaf0] p-10 rounded-3xl border border-gold/20 shadow-xl text-center" data-aos="flip-left">
+                        <i class="fas fa-ring text-gold text-4xl mb-4"></i>
+                        <h3 class="font-playfair text-3xl mb-4">Akad Nikah</h3>
+                        <div class="space-y-2 text-gray-700">
+                            <p class="font-bold">Minggu, 14 Maret 2027</p>
+                            <p>Pukul 09:00 WITA - Selesai</p>
+                            <p class="mt-4 italic">Masjid Raya Baitul Khairaat</p>
+                            <p>Jl. Jaelangkara</p>
+                        </div>
+                        <a href="https://maps.google.com/?q=Masjid+Raya+Baitul+Khairaat+Jaelangkara" target="_blank" class="inline-block mt-8 bg-gold text-white px-6 py-2 rounded-full hover:bg-gold-dark transition shadow-md">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Lihat Lokasi
+                        </a>
+                    </div>
+                    
+                    <!-- Resepsi (Placeholder - based on common flow) -->
+                    <div class="bg-white p-10 rounded-3xl border border-gold/20 shadow-xl text-center" data-aos="flip-right">
+                        <i class="fas fa-utensils text-gold text-4xl mb-4"></i>
+                        <h3 class="font-playfair text-3xl mb-4">Resepsi</h3>
+                        <div class="space-y-2 text-gray-700">
+                            <p class="font-bold">Minggu, 14 Maret 2027</p>
+                            <p>Pukul 11:00 WITA - Selesai</p>
+                            <p class="mt-4 italic">Masjid Raya Baitul Khairaat</p>
+                            <p>Jl. Jaelangkara</p>
+                        </div>
+                        <button class="inline-block mt-8 border border-gold text-gold px-6 py-2 rounded-full hover:bg-gold hover:text-white transition">
+                            <i class="fas fa-calendar-plus mr-2"></i> Ingatkan Saya
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed -->
+                <div class="mt-12 rounded-2xl overflow-hidden shadow-lg border-4 border-white" data-aos="zoom-in">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.288219463991!2d119.8800000!3d-0.8900000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwNTMnMjQuMCJTIDExOcKwNTInNDguMCJF!5e0!3m2!1sid!2sid!4v1620000000000!5m2!1sid!2sid" 
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="py-20 bg-[#fefefe]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-playfair text-4xl text-gold mb-2">Galeri Momen</h2>
+                    <p class="text-gray-500 italic text-sm">Every moment is a memory in the making</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="overflow-hidden rounded-lg shadow-md hover:scale-105 transition duration-500" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="https://lh3.googleusercontent.com/d/1Z5NPC5P4OtEsvTfq8ahCNIu6HskSCsji" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="overflow-hidden rounded-lg shadow-md hover:scale-105 transition duration-500" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="https://lh3.googleusercontent.com/d/1ahx9XMi4WC2MBgcJGTN2CrGBaTm7PVOl" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="overflow-hidden rounded-lg shadow-md hover:scale-105 transition duration-500" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="https://lh3.googleusercontent.com/d/1MpC9Xx_LDqwlN5NnM-URHOjDVFb6YwB0" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="overflow-hidden rounded-lg shadow-md hover:scale-105 transition duration-500" data-aos="zoom-in" data-aos-delay="400">
+                        <img src="https://lh3.googleusercontent.com/d/1MpC9Xx_LDqwlN5NnM-URHOjDVFb6YwB0" class="w-full h-64 object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & Wishes -->
+        <section class="py-20 bg-gold-gradient">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- RSVP Form -->
+                    <div data-aos="fade-up">
+                        <h3 class="font-playfair text-2xl text-gold mb-6 border-b border-gold/20 pb-2">Konfirmasi Kehadiran</h3>
+                        <form id="rsvpForm" class="space-y-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Nama Lengkap</label>
+                                <input type="text" class="w-full bg-white border border-gray-200 rounded-lg p-3 outline-none focus:border-gold" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Jumlah Tamu</label>
+                                <select class="w-full bg-white border border-gray-200 rounded-lg p-3 outline-none focus:border-gold">
+                                    <option>1 Orang</option>
+                                    <option>2 Orang</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-1">Kehadiran</label>
+                                <div class="flex space-x-4 mt-2">
+                                    <label class="flex items-center"><input type="radio" name="attend" class="mr-2 accent-gold" checked> Hadir</label>
+                                    <label class="flex items-center"><input type="radio" name="attend" class="mr-2 accent-gold"> Tidak Hadir</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-gold text-white py-3 rounded-lg font-bold shadow-lg hover:bg-gold-dark transition duration-300">
+                                Kirim RSVP
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Wishes -->
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="font-playfair text-2xl text-gold mb-6 border-b border-gold/20 pb-2">Kirim Ucapan & Doa</h3>
+                        <div id="wishes-container" class="bg-white/50 h-64 rounded-xl p-4 overflow-y-auto mb-4 border border-gold/10">
+                            <div class="mb-3 p-3 bg-white rounded shadow-sm border-l-4 border-gold">
+                                <p class="text-xs font-bold text-gold">Hamba Allah</p>
+                                <p class="text-sm italic">Selamat menempuh hidup baru Hifzhan dan Triana!</p>
+                            </div>
+                        </div>
+                        <input id="wish-name" type="text" placeholder="Nama Anda" class="w-full mb-2 bg-white border border-gray-200 rounded-lg p-3 outline-none focus:border-gold text-sm">
+                        <textarea id="wish-text" placeholder="Tulis ucapan doa..." class="w-full bg-white border border-gray-200 rounded-lg p-3 outline-none focus:border-gold text-sm h-20"></textarea>
+                        <button onclick="addWish()" class="w-full mt-2 bg-gray-800 text-white py-3 rounded-lg font-bold shadow-lg hover:bg-black transition duration-300">
+                            Kirim Ucapan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift Section -->
+        <section class="py-20 bg-white text-center">
+            <div class="container mx-auto px-6 max-w-2xl" data-aos="zoom-in">
+                <i class="fas fa-gift text-gold text-4xl mb-6"></i>
+                <h2 class="font-playfair text-3xl text-gold mb-4">Wedding Gift</h2>
+                <p class="text-gray-600 mb-10">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat melalui:</p>
+                
+                <div class="bg-[#fdfbf7] border-2 border-dashed border-gold/30 p-8 rounded-2xl relative">
+                    <div class="flex flex-col items-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/2560px-Bank_Central_Asia.svg.png" alt="BCA" class="h-8 mb-4">
+                        <p class="text-xl font-bold tracking-widest text-gray-800 mb-1" id="accNumber">5575017328</p>
+                        <p class="text-sm uppercase tracking-wider text-gray-500">A.N Mohamad Hifzhan Qardhowi</p>
+                        <button onclick="copyToClipboard('5575017328')" class="mt-6 flex items-center bg-gold/10 text-gold px-4 py-2 rounded-full border border-gold/20 hover:bg-gold hover:text-white transition">
+                            <i class="far fa-copy mr-2"></i> Salin Nomor Rekening
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 bg-gray-900 text-white text-center">
+            <h2 class="font-cursive text-4xl mb-4">Hifzhan & Triana</h2>
+            <p class="text-gray-500 text-sm mb-8 italic">Sampai Jumpa di Hari Bahagia Kami</p>
+            <div class="text-[10px] text-gray-600 uppercase tracking-widest">
+                Made with ❤️ for Hifzhan & Triana
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Custom Toast Message -->
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-black/80 text-white px-6 py-3 rounded-full text-sm z-[100] opacity-0 transition-opacity pointer-events-none">
+        Berhasil disalin!
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out'
+        });
+
+        // Opening Invitation
+        function openInvitation() {
+            const overlay = document.getElementById('opening-overlay');
+            const mainContent = document.getElementById('main-content');
+            const musicControl = document.getElementById('music-control');
+            const audio = document.getElementById('bgMusic');
+
+            overlay.style.transform = 'translateY(-100%)';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                musicControl.classList.remove('hidden');
+                audio.play();
+            }, 1000);
+        }
+
+        // Music Control
+        let isPlaying = true;
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) {
+                audio.pause();
+                icon.classList.remove('music-rotate');
+                isPlaying = false;
+            } else {
+                audio.play();
+                icon.classList.add('music-rotate');
+                isPlaying = true;
+            }
+        }
+
+        // Countdown Timer
+        const targetDate = new Date("2027-03-14T09:00:00").getTime();
+        
+        const countdownTimer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? "0"+days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0"+hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0"+minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0"+seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("countdown").innerHTML = "<h3 class='text-2xl font-bold'>Hari Bahagia Telah Tiba!</h3>";
+            }
+        }, 1000);
+
+        // Copy Account Number
+        function copyToClipboard(text) {
+            const dummy = document.createElement("input");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+        }
+
+        // Simple Wish System
+        function addWish() {
+            const nameInput = document.getElementById('wish-name');
+            const textInput = document.getElementById('wish-text');
+            const container = document.getElementById('wishes-container');
+
+            if (nameInput.value && textInput.value) {
+                const wishDiv = document.createElement('div');
+                wishDiv.className = 'mb-3 p-3 bg-white rounded shadow-sm border-l-4 border-gold animate-pulse';
+                wishDiv.innerHTML = `
+                    <p class="text-xs font-bold text-gold">${nameInput.value}</p>
+                    <p class="text-sm italic">${textInput.value}</p>
+                `;
+                container.prepend(wishDiv);
+                nameInput.value = '';
+                textInput.value = '';
+                setTimeout(() => wishDiv.classList.remove('animate-pulse'), 1000);
+            }
+        }
+
+        // RSVP Handler
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = 'Mengirim...';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Terkirim';
+                btn.classList.replace('bg-gold', 'bg-green-600');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
